@@ -6,7 +6,7 @@ services:
     container_name: users-service
     build:
       context: ./users-service
-      dockerfile: Dockerfile-dev
+      dockerfile: Dockerfile-prod
     ports:
       - 5001:5000
     environment:
