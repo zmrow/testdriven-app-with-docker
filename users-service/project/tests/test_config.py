@@ -18,8 +18,11 @@ class TestDevelopmentConfig(TestCase):
         self.assertTrue(app.config['SECRET_KEY'] == 'my_precious')
         self.assertTrue(app.config['DEBUG'])
         self.assertFalse(current_app is None)
+
+        app_config_db_uri = app.config['SQLALCHEMY_DATABASE_URI']
+        env_db_url = os.environ.get('DATABASE_URL')
         self.assertTrue(
-            app.config['SQLALCHEMY_DATABASE_URI'] == os.environ.get('DATABASE_URL')
+            app_config_db_uri == env_db_url
         )
 
 
@@ -33,8 +36,11 @@ class TestTestingConfig(TestCase):
         self.assertTrue(app.config['DEBUG'])
         self.assertTrue(app.config['TESTING'])
         self.assertFalse(app.config['PRESERVE_CONTEXT_ON_EXCEPTION'])
+
+        app_config_db_uri = app.config['SQLALCHEMY_DATABASE_URI']
+        env_db_test_url = os.environ.get('DATABASE_TEST_URL')
         self.assertTrue(
-            app.config['SQLALCHEMY_DATABASE_URI'] == os.environ.get('DATABASE_TEST_URL')
+             app_config_db_uri == env_db_test_url
         )
 
 
@@ -47,6 +53,7 @@ class TestProductionConfig(TestCase):
         self.assertTrue(app.config['SECRET_KEY'] == 'my_precious')
         self.assertFalse(app.config['DEBUG'])
         self.assertFalse(app.config['TESTING'])
+
 
 if __name__ == '__main__':
     unittest.main()
