@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 # Instantiate the db
 db = SQLAlchemy()
@@ -9,6 +10,8 @@ db = SQLAlchemy()
 def create_app():
     # Instantiate the app
     app = Flask(__name__)
+
+    CORS(app)
 
     # Set config
     app_settings = os.getenv('APP_SETTINGS')
